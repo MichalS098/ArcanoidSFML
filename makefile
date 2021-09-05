@@ -4,14 +4,18 @@ CC = g++
 CFLAGS = -Wall -Wextra -pedantic 		      			 #compiler flags                                                                                                                                     
 LIBS = -lm -lsfml-graphics -lsfml-window -lsfml-system   #adding required libraries                                                                                                                          
 
-all: main.o ball.o
-	$(CC) $(CFLAGS) obj/main.o obj/ball.o -o game $(LIBS)
+all: main.o ball.o paddle.o
+	$(CC) $(CFLAGS) obj/main.o obj/ball.o obj/paddle.o -o game $(LIBS)
 
-main.o: src/main.cpp inc/ball.hh
+main.o: src/main.cpp inc/ball.hh inc/paddle.hh
 	$(CC) $(CFLAGS) src/main.cpp -c -o obj/main.o $(LIBS)
 
 ball.o: src/ball.cpp inc/ball.hh
 	$(CC) $(CFLAGS) src/ball.cpp -c -o obj/ball.o $(LIBS)
+
+paddle.o: src/paddle.cpp inc/paddle.hh
+	$(CC) $(CFLAGS) src/paddle.cpp -c -o obj/paddle.o $(LIBS)
+
 
 run: 
 	./game

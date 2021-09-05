@@ -13,6 +13,7 @@ class Ball: public sf::Drawable{
     float              _radius;
     sf::Vector2f       _velocityVec;
     sf::CircleShape    _shape;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 protected:
     sf::Vector2f leftSidePosition() const;
@@ -23,13 +24,11 @@ protected:
 
 public:
     Ball() = delete;
-    Ball(float x, float y, float radius, sf::Vector2f velocity, sf::Color color);
+    explicit Ball(float x, float y, float radius, sf::Vector2f velocity, sf::Color color);
     ~Ball() = default;
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void update(sf::Vector2f boxDimensions);
     sf::Vector2f getPosition() const {return _position;}
     sf::Vector2f getVelocity() const {return _velocityVec;}
     float getRadius() const {return _radius;}
-
 };
