@@ -5,4 +5,4 @@
 
 void endOfGame(sf::RenderWindow& window, sf::Event& event);
 
-void showMainMenu();
+void showMainMenu(sf::RenderWindow& window, sf::Event& event);

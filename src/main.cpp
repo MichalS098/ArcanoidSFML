@@ -17,19 +17,19 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(1000, 700), "First Game!", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60); 
     sf::Vector2i windowPos = window.getPosition();
+    sf::Event event;
 
     sf::Texture texture;
-    texture.loadFromFile("img//backGroundNr2.jpg");
+    texture.loadFromFile("img//backGroundNr1.jpg");
     texture.setRepeated(true);
     sf::Sprite sprite(texture);
     sprite.setTextureRect(sf::IntRect(windowPos.x, windowPos.y, 1000, 700)); 
 
-    Ball ball(10.0, 10.0, 13.0, sf::Vector2f{6.0, 6.0}, sf::Color::White);
+    Ball ball(10.0, 10.0, 13.0, sf::Vector2f{6.0, 6.0}, sf::Color(22, 215, 129));
     Paddle paddle(sf::Vector2f{55, 20}, 6, sf::Vector2f{500, 550});
 
-    showMainMenu();
+    showMainMenu(window, event);
 
-    sf::Event event;
     while (window.isOpen())
     {
         window.clear();

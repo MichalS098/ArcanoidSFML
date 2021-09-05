@@ -12,7 +12,7 @@ class Paddle: public sf::Drawable {
     sf::Vector2f _size;
     sf::Vector2f _velocity;
     sf::Vector2f _position;
-    sf::Color _color = sf::Color::Blue;
+    sf::Color _color = sf::Color(22, 215, 129);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:
