@@ -1,8 +1,8 @@
 #include "../inc/paddle.hh"
 
 
-Paddle::Paddle(sf::Vector2f size={10.f, 10.f}, sf::Vector2f velocity={10.f, 0.f}, sf::Vector2f position={500, 550})
-: _shape{size}, _size{size}, _velocity{velocity}, _position{position}
+Paddle::Paddle(sf::Vector2f size={10.f, 10.f}, float velocity=6.f, sf::Vector2f position={500, 550})
+: _shape{size}, _size{size}, _velocity{velocity, 0.f}, _position{position}
 {
     _shape.setPosition(position);
     _shape.setFillColor(_color);
@@ -17,6 +17,15 @@ void Paddle::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 void Paddle::update(sf::Vector2f boxDimensions){
     manageCollisionWithTheBox(boxDimensions);
     _shape.move(this->_velocity);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)){
+        _velocity.x = -_paddleVelocity;
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)){
+        _velocity.x = _paddleVelocity;
+    }
+    else{
+        _velocity={0.f, 0.f};
+    }
 }
 
 
@@ -39,20 +48,12 @@ sf::Vector2f Paddle::topSidePosition() const{
  *        and if there is a collision it changes the Paddle velocity.
  * 
  * @param boxDimensions Dimension of the box that the Paddle is in
- * @return true 
- * @return false 
  */
 void Paddle::manageCollisionWithTheBox(sf::Vector2f boxDimensions){
     if(this->leftSidePosition().x <= 0.f){
-        _velocity.x = -_velocity.x;
+        _velocity.x = _paddleVelocity;
     }
     else if(this->rightSidePosition().x >= boxDimensions.x){
-        _velocity.x = -_velocity.x;
-    }
-    else if(this->topSidePosition().y <= 0.f){
-        _velocity.y = -_velocity.y;
-    }
-    else if(this->bottomSidePosition().y >= boxDimensions.y){
-        _velocity.y = -_velocity.y;
+        _velocity.x = -_paddleVelocity;
     }
 }

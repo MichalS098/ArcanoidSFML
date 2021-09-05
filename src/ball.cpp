@@ -1,6 +1,7 @@
 #include "../inc/ball.hh"
 #include <exception>
 
+constexpr int END_OF_GAME=1024;
 
 /**
  * @brief Construct a new Ball:: Ball object
@@ -32,9 +33,13 @@ void Ball::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 }
 
 
-void Ball::update(sf::Vector2f boxDimensions){
-    manageCollisionWithTheBox(boxDimensions);
+int Ball::update(sf::Vector2f boxDimensions){
+    int sideCollisionNumber = manageCollisionWithTheBox(boxDimensions);
+    if(sideCollisionNumber==END_OF_GAME){
+        return END_OF_GAME;
+    }
     _shape.move(this->_velocityVec);
+    return 0;
 }
 
 
@@ -72,17 +77,22 @@ sf::Vector2f Ball::topSidePosition() const{
  * @return true 
  * @return false 
  */
-void Ball::manageCollisionWithTheBox(sf::Vector2f boxDimensions){
+int Ball::manageCollisionWithTheBox(sf::Vector2f boxDimensions){
     if(this->leftSidePosition().x <= 0.f){
         _velocityVec.x = -_velocityVec.x;
+        return 0;
     }
     else if(this->rightSidePosition().x >= boxDimensions.x){
         _velocityVec.x = -_velocityVec.x;
+        return 0;
     }
     else if(this->topSidePosition().y <= 0.f){
         _velocityVec.y = -_velocityVec.y;
+        return 0;
     }
     else if(this->bottomSidePosition().y >= boxDimensions.y){
         _velocityVec.y = -_velocityVec.y;
+        return END_OF_GAME;
     }
+    return 0;
 }

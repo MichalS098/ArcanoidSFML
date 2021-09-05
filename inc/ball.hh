@@ -15,20 +15,20 @@ class Ball: public sf::Drawable{
     sf::CircleShape    _shape;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-protected:
+public:
     sf::Vector2f leftSidePosition() const;
     sf::Vector2f rightSidePosition() const;
     sf::Vector2f bottomSidePosition() const;
     sf::Vector2f topSidePosition() const;
-    void manageCollisionWithTheBox(sf::Vector2f boxDimensions);
+    int manageCollisionWithTheBox(sf::Vector2f boxDimensions);
 
-public:
     Ball() = delete;
     explicit Ball(float x, float y, float radius, sf::Vector2f velocity, sf::Color color);
     ~Ball() = default;
 
-    void update(sf::Vector2f boxDimensions);
+    int update(sf::Vector2f boxDimensions);
     sf::Vector2f getPosition() const {return _position;}
     sf::Vector2f getVelocity() const {return _velocityVec;}
     float getRadius() const {return _radius;}
+    void setVelocity(sf::Vector2f velocity){_velocityVec = velocity;}
 };
