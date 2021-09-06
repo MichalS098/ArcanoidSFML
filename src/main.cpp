@@ -12,22 +12,18 @@ bool isIntersecting(const T1& a, const T2& b){
         && a.bottomSidePosition().y >= b.topSidePosition().y && a.topSidePosition().y <= b.bottomSidePosition().y;
 }
 
-
 int main(){
     sf::RenderWindow window(sf::VideoMode(1000, 700), "First Game!", sf::Style::Titlebar | sf::Style::Close);
+    window.setPosition(sf::Vector2i{200, 200});
     window.setFramerateLimit(60); 
-    sf::Vector2i windowPos = window.getPosition();
-    sf::Event event;
-
-    sf::Texture texture;
-    texture.loadFromFile("img//backGroundNr1.jpg");
-    texture.setRepeated(true);
-    sf::Sprite sprite(texture);
-    sprite.setTextureRect(sf::IntRect(windowPos.x, windowPos.y, 1000, 700)); 
-
+    
+    sf::Sprite sprite;
+    makeBackground(sprite, window.getPosition());
+    
     Ball ball(10.0, 10.0, 13.0, sf::Vector2f{6.0, 6.0}, sf::Color(22, 215, 129));
     Paddle paddle(sf::Vector2f{55, 20}, 6, sf::Vector2f{500, 550});
 
+    sf::Event event;
     showMainMenu(window, event);
 
     while (window.isOpen())
@@ -37,8 +33,9 @@ int main(){
         {
             if (event.type == sf::Event::Closed) window.close();            
         }
-        if(ball.update(sf::Vector2f{1000,700}) == END_OF_GAME){
-            endOfGame(window, event);
+        if(ball.update(sf::Vector2f{1000,700}) == END_OF_GAME)     //If ball hit the bottom of the screen
+        {                                                          //function "update" returns END_OF_GAME int value
+            endOfGame(window, event);                               
         }
         paddle.update(sf::Vector2f{1000,700});
         window.draw(sprite);

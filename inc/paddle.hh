@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+
+const sf::Color paddleColor = sf::Color::Blue;
+
 /**
  * @brief Paddle floating on the screen, it's job is to knock the floating ball.
  * 
@@ -12,7 +15,7 @@ class Paddle: public sf::Drawable {
     sf::Vector2f _size;
     sf::Vector2f _velocity;
     sf::Vector2f _position;
-    sf::Color _color = sf::Color(22, 215, 129);
+    sf::Color _color = paddleColor;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:

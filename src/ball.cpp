@@ -17,9 +17,16 @@ Ball::Ball(float x=0.f, float y=0.f, float radius=0.f, sf::Vector2f velocity={0.
 {
     if(x<0 || y<0 || radius<0)
         throw std::invalid_argument("Invalid arguments for Ball object (ctor).");
+    //initializing shape
     _shape.setRadius(radius);
     _shape.setPosition(x, y);
     _shape.setFillColor(color);
+
+    //setting metal texture to the ball
+    sf::Texture* ballTexture = new sf::Texture;
+    ballTexture->loadFromFile("img/metalTexture.jpg");
+    ballTexture->setRepeated(true);
+    _shape.setTexture(ballTexture);
 }
 
 /**

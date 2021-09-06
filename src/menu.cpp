@@ -1,5 +1,14 @@
 #include "../inc/menu.hh"
 
+
+void makeBackground(sf::Sprite& sprite, const sf::Vector2i& position){
+    sf::Texture* texture = new sf::Texture;
+    texture->loadFromFile("img/backGroundNr1.jpg");
+    texture->setRepeated(true);
+    sprite.setTexture(*texture);
+    sprite.setTextureRect(sf::IntRect(position.x, position.y, 1000, 700)); 
+}
+
 void endOfGame(sf::RenderWindow& window, sf::Event& event){
     window.clear();
     window.setTitle("Game Over");
@@ -41,6 +50,10 @@ void showMainMenu(sf::RenderWindow& window, sf::Event& event){
             if (event.key.code == sf::Keyboard::Space){
                 break;
             }
+        }
+        if (event.type == sf::Event::Closed) {
+            window.close();
+            exit(0);
         }
     }
 }

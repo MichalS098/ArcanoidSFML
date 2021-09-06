@@ -6,6 +6,12 @@ Paddle::Paddle(sf::Vector2f size={10.f, 10.f}, float velocity=6.f, sf::Vector2f 
 {
     _shape.setPosition(position);
     _shape.setFillColor(_color);
+
+    //setting metal texture to the paddle
+    sf::Texture* paddleTexture = new sf::Texture;
+    paddleTexture->loadFromFile("img/metalTexture.jpg");
+    paddleTexture->setRepeated(true);
+    _shape.setTexture(paddleTexture);
 }
 
 
